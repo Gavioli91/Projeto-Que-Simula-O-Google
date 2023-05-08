@@ -7,23 +7,30 @@ def process(path_file, archive):
     create_file = {
         'nome_do_arquivo': path_file,
         'qtd_linhas': len(directory),
-        'linhas_do_arquivo': directory,
+        'linhas_do_arquivo': directory
     }
 
-    for content in archive.data:
+    for content in archive.content:
         if content['nome_do_arquivo'] == path_file:
-            return False
+            return None
 
     archive.enqueue(create_file)
-
-    return sys.stdout.write(str
-                            (create_file)
-                            )
+    return sys.stdout.write(str(create_file))
 
 
 def remove(instance):
-    """Aqui irá sua implementação"""
+    if len(instance) > 0:
+        directory = instance.dequeue()
+        path_file = directory['nome_do_arquivo']
+        return sys.stdout.write(
+            str(f'Arquivo {path_file} removido com sucesso\n'))
+    return sys.stdout.write(str('Não há elementos\n'))
 
 
 def file_metadata(instance, position):
-    """Aqui irá sua implementação"""
+    try:
+        return sys.stdout.write(
+            str(instance.search(position)
+                ))
+    except IndexError:
+        return sys.stderr.write('Posição inválida')
