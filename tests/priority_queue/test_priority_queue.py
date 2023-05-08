@@ -13,7 +13,7 @@ def test_basic_priority_queueing():
     directory.enqueue(mock1)
 
     assert len(directory) == 1
-    assert directory.search(0) is mock
+    assert directory.search(0) == mock
     directory.dequeue()
     assert len(directory) == 2
 
